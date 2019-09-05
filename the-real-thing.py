@@ -1,4 +1,5 @@
 import os
+import sys
 
 from PIL import Image, ImageChops
 import pilgram
@@ -34,5 +35,22 @@ def invert_filter(image):
     ImageChops.invert(image).save("abbey.inverted.jpg")
 
 
-invert_filter(image)
-os.startfile("abbey.inverted.jpg")
+funcs = {
+    'average': average_filter,
+    'above_average': above_average_filter,
+    'inverted': invert_filter,
+    'kelvin': sepiaise,
+}
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        filter = 'wrong'
+    else:
+        filter = sys.argv[1]
+    if filter not in funcs:
+        print('Valid filters are: {}'.format(', '.join(funcs.keys())))
+        sys.exit(1)
+
+    funcs[filter](image)
+
+    os.startfile("abbey.{}.jpg".format(filter))
