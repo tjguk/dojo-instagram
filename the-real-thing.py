@@ -30,7 +30,9 @@ def above_average_filter(image):
             image.setpixel((x,y), tuple(above_average))
     image.save("abbey.above_average.jpg")
 
+def invert_filter(image):
+    ImageChops.invert(image).save("abbey.inverted.jpg")
 
 
-above_average_filter(image)
-os.startfile("abbey.above_average.jpg")
+invert_filter(image)
+os.startfile("abbey.inverted.jpg")
